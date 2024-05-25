@@ -64,23 +64,122 @@ Activation functions are crucial in neural networks as they introduce non-linear
 
 Here are detailed descriptions of three commonly used activation functions:
 
+#### ELU (Exponential Linear Unit)
+Defined as:
+ $$ f(x) = \begin{cases} 
+x & \text{if } x > 0 \\
+\alpha (e^x - 1) & \text{if } x \leq 0 
+\end{cases} $$
+- **Pros**: Helps with the vanishing gradient problem and can produce negative outputs which shift the mean of the activations closer to zero.
+- **Cons**: More computationally expensive than ReLU.
+
+#### Exponential
+Defined as:
+ $$ f(x) = e^x $$
+- **Pros**: Can be useful in specific applications where exponential growth is needed.
+- **Cons**: Can lead to very large values, causing numerical instability.
+
+#### GELU (Gaussian Error Linear Unit)
+Defined as:
+ $$ f(x) = x \cdot \Phi(x) $$
+where \( \Phi(x) \) is the cumulative distribution function of the standard normal distribution.
+- **Pros**: Smooth approximation, often outperforms ReLU and ELU in practice.
+- **Cons**: Computationally more complex than ReLU and ELU.
+
+#### Hard Sigmoid
+Defined as:
+ $$ f(x) = \max(0, \min(1, 0.2x + 0.5)) $$
+- **Pros**: Computationally simpler than the standard sigmoid.
+- **Cons**: Not differentiable everywhere.
+
+#### Hard SiLU (Hard Swish)
+Defined as:
+ $$ f(x) = x \cdot \max(0, \min(1, 0.2x + 0.5)) $$
+- **Pros**: Provides a non-linearity similar to Swish but computationally cheaper.
+- **Cons**: Not differentiable everywhere.
+
+#### Leaky ReLU
+Defined as:
+ $$ f(x) = \begin{cases} 
+x & \text{if } x > 0 \\
+\alpha x & \text{if } x \leq 0 
+\end{cases} $$
+- **Pros**: Allows a small, non-zero gradient when the unit is inactive, preventing dead neurons.
+- **Cons**: The slope of the negative part must be set manually.
+
+#### Linear
+Defined as:
+ $$ f(x) = x $$
+- **Pros**: Simple and computationally efficient.
+- **Cons**: Does not introduce any non-linearity, limiting the network's capacity to learn complex patterns.
+
+#### Log Softmax
+$$ f(x_i) = \log\left(\frac{e^{x_i}}{\sum_{j} e^{x_j}}\right) $$
+- **Pros**: Converts logits into log-probabilities, useful for numerical stability in classification tasks.
+- **Cons**: Computationally expensive for a large number of classes.
+
+#### Mish
+Defined as:
+ $$ f(x) = x \cdot \tanh(\ln(1 + e^x)) $$
+- **Pros**: Smooth and non-monotonic, can lead to better performance than ReLU.
+- **Cons**: More computationally expensive than ReLU.
+
 #### ReLU (Rectified Linear Unit)
-The ReLU function is defined as:
-$$ f(x) = \max(0, x) $$
-- **Pros**: It helps mitigate the vanishing gradient problem, allowing models to learn faster and perform better.
-- **Cons**: It can lead to dead neurons during training if a neuron always outputs a negative value.
+Defined as:
+ $$ f(x) = \max(0, x) $$
+- **Pros**: Simple and effective, helps mitigate the vanishing gradient problem.
+- **Cons**: Can lead to dead neurons if a neuron always outputs a negative value.
+
+#### ReLU6
+Defined as:
+ $$ f(x) = \min(\max(0, x), 6) $$
+- **Pros**: Bounded activation to avoid overflow, commonly used in mobile and embedded vision applications.
+- **Cons**: Can still lead to dead neurons.
+
+#### SELU (Scaled Exponential Linear Unit)
+Defined as:
+ $$ f(x) = \lambda \begin{cases} 
+x & \text{if } x > 0 \\
+\alpha (e^x - 1) & \text{if } x \leq 0 
+\end{cases} $$
+- **Pros**: Self-normalizing properties, can lead to faster convergence.
+- **Cons**: Requires careful initialization and a specific architecture.
 
 #### Sigmoid
-The Sigmoid function is defined as:
-$$ f(x) = \frac{1}{1 + e^{-x}} $$
-- **Pros**: It outputs values between 0 and 1, making it useful for binary classification problems.
-- **Cons**: It can cause the vanishing gradient problem and has slow convergence.
+Defined as:
+ $$ f(x) = \frac{1}{1 + e^{-x}} $$
+- **Pros**: Outputs values between 0 and 1, useful for binary classification problems.
+- **Cons**: Can cause the vanishing gradient problem and has slow convergence.
+
+#### SiLU (Swish)
+Defined as:
+ $$ f(x) = x \cdot \sigma(x) $$
+where \( \sigma(x) \) is the sigmoid function.
+- **Pros**: Smooth and non-monotonic, often outperforms ReLU in practice.
+- **Cons**: More computationally expensive than ReLU.
 
 #### Softmax
-The Softmax function is defined as:
 $$ f(x_i) = \frac{e^{x_i}}{\sum_{j} e^{x_j}} $$
-- **Pros**: It converts logits into probabilities, making it useful for multi-class classification problems.
-- **Cons**: It is computationally expensive for a large number of classes.
+- **Pros**: Converts logits into probabilities, making it useful for multi-class classification problems.
+- **Cons**: Computationally expensive for a large number of classes.
+
+#### Softplus
+Defined as:
+ $$ f(x) = \ln(1 + e^x) $$
+- **Pros**: Smooth and differentiable, helps mitigate the vanishing gradient problem.
+- **Cons**: More computationally expensive than ReLU.
+
+#### Softsign
+Defined as:
+ $$ f(x) = \frac{x}{1 + |x|} $$
+- **Pros**: Smooth and computationally efficient.
+- **Cons**: Can lead to slow convergence.
+
+#### Tanh (Hyperbolic Tangent)
+Defined as:
+ $$ f(x) = \tanh(x) $$
+- **Pros**: Outputs values between -1 and 1, useful for zero-centered data.
+- **Cons**: Can cause the vanishing gradient problem.
 
 ### Example
 ```js
