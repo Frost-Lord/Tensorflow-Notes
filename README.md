@@ -42,21 +42,22 @@ TensorFlow.js (tfjs) provides a comprehensive set of neural network layers for b
     - [Key Parameters](#key-parameters-3)
     - [Example](#example-3)
   - [MaxPooling2D Layer](#maxpooling2d-layer)
+    - [Description](#description-3)
     - [Key Parameters](#key-parameters-4)
     - [Example](#example-4)
   - [Flatten Layer](#flatten-layer)
-    - [Description](#description-3)
+    - [Description](#description-4)
     - [Example](#example-5)
   - [LSTM Layer](#lstm-layer)
-    - [Description](#description-4)
+    - [Description](#description-5)
     - [Key Parameters](#key-parameters-5)
     - [Example](#example-6)
   - [GRU Layer](#gru-layer)
-    - [Description](#description-5)
+    - [Description](#description-6)
     - [Key Parameters](#key-parameters-6)
     - [Example](#example-7)
   - [BatchNormalization Layer](#batchnormalization-layer)
-    - [Description](#description-6)
+    - [Description](#description-7)
     - [Example](#example-8)
     - [Example Model](#example-model)
 
@@ -293,7 +294,7 @@ model.add(tf.layers.conv2d({
 }));
 ```
 ## MaxPooling2D Layer
-###Description
+### Description
 The MaxPooling2D layer downsamples the input along its spatial dimensions (height and width) by taking the maximum value over an input window (of size defined by poolSize).
 
 ### Key Parameters
