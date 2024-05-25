@@ -60,6 +60,18 @@ TensorFlow.js (tfjs) provides a comprehensive set of neural network layers for b
     - [Description](#description-7)
     - [Example](#example-8)
     - [Example Model](#example-model)
+  - [Model Compilation](#model-compilation)
+    - [Optimizers](#optimizers)
+      - [Adam](#adam)
+      - [sgd](#sgd)
+      - [rmsprop](#rmsprop)
+      - [categoricalCrossentropy](#categoricalcrossentropy)
+      - [binaryCrossentropy](#binarycrossentropy)
+      - [meanSquaredError](#meansquarederror)
+      - [accuracy](#accuracy)
+      - [precision](#precision)
+      - [recall](#recall)
+    - [Output of Predictions](#output-of-predictions)
 
 
 ## Dense Layer
@@ -383,3 +395,88 @@ model.compile({
 model.summary();
 ```
 This example defines a simple convolutional neural network (CNN) for classifying images. It includes convolutional layers, max pooling, dropout for regularization, and dense layers with a final softmax activation for classification.
+
+## Model Compilation
+The `model.compile` method configures the model for training. It specifies the optimizer, loss function, and metrics used to evaluate the model. Below are different configurations you can use with `model.compile`.
+
+### Optimizers
+#### Adam
+```js
+model.compile(optimizer='adam', loss='categoricalCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Adaptive learning rate, works well on most problems, faster convergence.
+- **Cons:** Can be computationally expensive, might overfit on small datasets.
+#### sgd
+```js
+model.compile(optimizer='sgd', loss='categoricalCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Simple and easy to implement, often performs well on large datasets.
+- **Cons:** Requires careful tuning of learning rate, slower convergence compared to adaptive methods.
+#### rmsprop
+```js
+model.compile(optimizer='rmsprop', loss='categoricalCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Adapts learning rate based on average of recent magnitudes, good for recurrent neural networks.
+- **Cons:** Learning rate needs to be carefully tuned, might not perform well on simple tasks.
+Loss Functions
+#### categoricalCrossentropy
+```js
+model.compile(optimizer='adam', loss='categoricalCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Suitable for multi-class classification problems.
+- **Cons:** Can be numerically unstable if not implemented properly.
+#### binaryCrossentropy
+```js
+model.compile(optimizer='adam', loss='binaryCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Suitable for binary classification problems.
+- **Cons:** Not suitable for multi-class classification problems.
+#### meanSquaredError
+```js
+model.compile(optimizer='adam', loss='meanSquaredError', metrics=['accuracy'])
+```
+- **Pros:** Suitable for regression problems.
+- **Cons:** Not suitable for classification problems.
+Metrics
+#### accuracy
+```js
+model.compile(optimizer='adam', loss='categoricalCrossentropy', metrics=['accuracy'])
+```
+- **Pros:** Easy to interpret, widely used in classification problems.
+- **Cons:** Can be misleading if the dataset is imbalanced.
+#### precision
+```js
+model.compile(optimizer='adam', loss='categoricalCrossentropy', metrics=['precision'])
+```
+- **Pros:** Useful for classification problems with imbalanced classes.
+- **Cons:** Can be misleading if the dataset has many classes.
+#### recall
+```js
+model.compile(optimizer='adam', loss='categoricalCrossentropy', metrics=['recall'])
+```
+- **Pros:** Useful for classification problems with imbalanced classes.
+- **Cons:** Can be misleading if the dataset has many classes.
+
+### Output of Predictions
+When making predictions using a model compiled with `categoricalCrossentropy` loss, the output will be in the form of probabilities for each class. For example, if you have a model predicting three classes, the output might look like this:
+```js
+let predictions = model.predict(x)
+console.log(predictions)
+// Output: [[0.1, 0.7, 0.2], [0.3, 0.4, 0.3], ...]
+```
+Each value represents the probability of the corresponding class.
+
+In contrast, if you use `binaryCrossentropy` for binary classification, the output will be a single probability for each input, representing the likelihood of the positive class:
+```js
+let predictions = model.predict(x)
+console.log(predictions)
+// Output: [0.8, 0.3, ...]
+```
+
+For regression problems using meanSquaredError, the output will be the actual predicted values:
+```js
+let predictions = model.predict(x)
+console.log(predictions)
+// Output: [3.4, 2.1, ...]
+```
+Understanding the different configurations of `model.compile` can help you tailor your model to better suit your specific problem and dataset.
