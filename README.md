@@ -84,7 +84,7 @@ The `Dense` layer is a fully connected layer, meaning each neuron in the layer i
 - `activation`: Activation function to use. If you don't specify anything, no activation is applied.
 
 ### Example
-```
+```js
 const tf = require('@tensorflow/tfjs');
 
 // Define a simple model with one dense layer
